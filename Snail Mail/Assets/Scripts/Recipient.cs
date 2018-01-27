@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Recipient : MonoBehaviour
 {
+	public ParticleSystem Particles;
+	public Transform Heart;
+
 	private Rigidbody _rb;
 	void Start ()
 	{
@@ -16,6 +19,16 @@ public class Recipient : MonoBehaviour
 		{
 			Destroy(GetComponent<SideMoving>());
 			_rb.constraints = new RigidbodyConstraints();
+			Particles.transform.SetParent(Heart, false);
+			Particles.transform.localPosition = Vector3.zero;
+			Particles.Play();
+			StartCoroutine(DestroySoon(collision.gameObject));
 		}
+	}
+
+	private IEnumerator DestroySoon(GameObject obj)
+	{
+		yield return new WaitForSeconds(0.1f);
+		Destroy(obj);
 	}
 }
