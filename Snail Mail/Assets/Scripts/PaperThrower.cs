@@ -16,6 +16,7 @@ public class PaperThrower : MonoBehaviour
 	private Vector3 _startScreenSpace;
 	private Vector3 _offset;
 	private float _currentMotionLimit;
+	private float _relativePosition;
 
 	private Vector3 _targetPosition;
 
@@ -42,7 +43,8 @@ public class PaperThrower : MonoBehaviour
 		{
 			//TEMP - we'll want to see it drop later
 			// also, if you let go too soon after grabbing, don't penalise
-//			Destroy(_grabbedObject);
+			Destroy(_grabbedObject.GetComponent<Grabbable>());
+			_grabbedObject.GetComponent<LaunchThing>().Launch(_targetPosition, _relativePosition);
 			_grabbedObject = null;
 			return;
 		}
@@ -54,12 +56,12 @@ public class PaperThrower : MonoBehaviour
 		curPosition.z = Mathf.Clamp(curPosition.z, ZLimit, 0);
 
 		Debug.Log(curPosition.z / ZLimit);
-		var relativePosition = Mathf.Abs(curPosition.z / ZLimit);
-		_currentMotionLimit = MotionLimitMin + ((1 - relativePosition) * (MotionLimitMax - MotionLimitMin));
+		_relativePosition = Mathf.Abs(curPosition.z / ZLimit);
+		_currentMotionLimit = MotionLimitMin + ((1 - _relativePosition) * (MotionLimitMax - MotionLimitMin));
 
 		_grabbedObject.transform.position = new Vector3(_grabbedObject.transform.position.x, _grabbedObject.transform.position.y, curPosition.z);
 
-		_targetPosition = new Vector3(0, 0, TargetDistanceMin + (relativePosition * (TargetDistanceMax - TargetDistanceMin)));
+		_targetPosition = new Vector3(0, 0, TargetDistanceMin + (_relativePosition * (TargetDistanceMax - TargetDistanceMin)));
 		Debug.Log(_targetPosition);
 	}
 
