@@ -66,7 +66,6 @@ public class PaperThrower : MonoBehaviour
 		_grabbedObject.transform.position = finalPosition;
 
 		_zStrength = Mathf.Abs((ZLimitMin + finalPosition.z) / (ZLimitMax - ZLimitMin));
-		Debug.Log(_zStrength);
 
 		_targetPosition = new Vector3(-finalPosition.x * Spread, 0, TargetDistanceMin + (_zStrength * (TargetDistanceMax - TargetDistanceMin)));
 

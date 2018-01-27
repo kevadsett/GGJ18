@@ -29,6 +29,7 @@ public class Launchable : MonoBehaviour {
 		{
 			_inFlight = false;
 			transform.position = _target;
+			Destroy(GetComponent<CapsuleCollider>());
 			return;
 		}
 

@@ -4,17 +4,18 @@ using UnityEngine;
 
 public class Recipient : MonoBehaviour
 {
+	private Rigidbody _rb;
+	void Start ()
+	{
+		_rb = GetComponent<Rigidbody>();
+	}
+
 	void OnCollisionEnter(Collision collision)
 	{
-		Debug.Log(collision.gameObject);
-	}
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+		if (collision.gameObject.tag == "LetterBall")
+		{
+			Destroy(GetComponent<SideMoving>());
+			_rb.constraints = new RigidbodyConstraints();
+		}
 	}
 }
