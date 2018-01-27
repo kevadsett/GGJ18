@@ -43,6 +43,8 @@ public class MeshOutlineyThing : MonoBehaviour {
 		var verts = new Vector3 [points.Length * 2];
 		var uvs = new Vector2 [points.Length * 2];
 
+		// MAKE ALL THE POINTS BUT LIKE DOUBLE SO WE CAN MAKE SIDENESS
+
 		for (int i = 0; i < points.Length; i++) {
 			var v2d = points [i];
 
@@ -75,6 +77,20 @@ public class MeshOutlineyThing : MonoBehaviour {
 			tris [start + 0] = v0; tris [start + 1] = v1; tris [start + 2] = v2;
 			tris [start + 3] = v2; tris [start + 4] = v1; tris [start + 5] = v3;
 		}
+
+		// JOIN THE END WITH THE START FOR MAXIMUM SIDENESS
+
+		int ve0 = points.Length - 1;
+		int ve1 = 0;
+		int ve2 = points.Length * 2 - 1;
+		int ve3 = points.Length;
+
+		int starte = tris.Length - 6;
+
+		tris [starte + 0] = ve0; tris [starte + 1] = ve1; tris [starte + 2] = ve2;
+		tris [starte + 3] = ve2; tris [starte + 4] = ve1; tris [starte + 5] = ve3;
+
+		// OK WE ARE DONE NOW
 
 		mesh.vertices = verts;
 		mesh.triangles = tris;
