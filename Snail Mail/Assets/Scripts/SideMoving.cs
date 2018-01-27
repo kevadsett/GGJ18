@@ -40,9 +40,4 @@ public class SideMoving : MonoBehaviour {
 
 		transform.position = new Vector3(newX, newY, transform.position.z);
 	}
-
-	void OnDrawGizmos()
-	{
-		Gizmos.DrawWireSphere(_mainCamera.ViewportToWorldPoint(_viewportPoint), 0.5f);
-	}
 }
