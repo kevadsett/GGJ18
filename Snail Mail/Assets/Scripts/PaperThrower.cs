@@ -9,9 +9,13 @@ public class PaperThrower : MonoBehaviour
 	public float MotionLimitMin = 0.001f;
 	public float ZLimitMin = -2f;
 	public float ZLimitMax = 2f;
-
 	public float TargetDistanceMax = 10;
 	public float TargetDistanceMin = 1;
+	public float ArrowScaleMin = 4;
+	public float ArrowScaleMax = 10;
+	public float Spread = 3;
+	public GameObject ArrowObject;
+	public GameObject TargetObject;
 
 	private enum State { NothingGrabbed, Positioning, SettingPower };
 	private State _state;
@@ -64,7 +68,14 @@ public class PaperThrower : MonoBehaviour
 		_zStrength = Mathf.Abs((ZLimitMin + finalPosition.z) / (ZLimitMax - ZLimitMin));
 		Debug.Log(_zStrength);
 
-		_targetPosition = new Vector3(-finalPosition.x * 2, 0, TargetDistanceMin + (_zStrength * (TargetDistanceMax - TargetDistanceMin)));
+		_targetPosition = new Vector3(-finalPosition.x * Spread, 0, TargetDistanceMin + (_zStrength * (TargetDistanceMax - TargetDistanceMin)));
+
+		Vector3 relativePos = _targetPosition - _grabbedObject.transform.position;
+		Quaternion rotation = Quaternion.LookRotation(relativePos);
+		ArrowObject.transform.rotation = rotation;
+		ArrowObject.transform.localScale = new Vector3(ArrowObject.transform.localScale.x, ArrowObject.transform.localScale.y, ArrowScaleMin + (_zStrength * (ArrowScaleMax - ArrowScaleMin)));
+
+		TargetObject.transform.position = _targetPosition;
 
 		if (Input.GetMouseButtonUp(0))
 		{
@@ -72,6 +83,7 @@ public class PaperThrower : MonoBehaviour
 			_grabbedObject.GetComponent<Launchable>().Launch(_targetPosition, _zStrength);
 			_grabbedObject = null;
 			_state = State.NothingGrabbed;
+			TargetObject.SetActive(false);
 			return;
 		}
 	}
@@ -96,6 +108,8 @@ public class PaperThrower : MonoBehaviour
 
 	private void OnThingGrabbed(GameObject gameObject)
 	{
+		TargetObject.SetActive(true);
+
 		_grabbedObject = gameObject;
 
 		Destroy(_grabbedObject.GetComponent<Grabbable>());
