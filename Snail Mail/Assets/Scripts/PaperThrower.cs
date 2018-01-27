@@ -4,77 +4,110 @@ using UnityEngine;
 
 public class PaperThrower : MonoBehaviour
 {
+	public GameObject BallPrefab;
 	public float MotionLimitMax = 0.01f;
 	public float MotionLimitMin = 0.001f;
-	public float ZLimit = -8f;
+	public float ZLimitMin = -2f;
+	public float ZLimitMax = 2f;
 
 	public float TargetDistanceMax = 10;
 	public float TargetDistanceMin = 1;
 
+	private enum State { NothingGrabbed, Positioning, SettingPower };
+	private State _state;
+
 	private Camera _mainCamera;
 	private GameObject _grabbedObject;
-	private Vector3 _startScreenSpace;
+	private Vector3 _initialMousePosition;
 	private Vector3 _offset;
 	private float _currentMotionLimit;
-	private float _relativePosition;
+	private float _zStrength;
+
+	private float _timePositioningStarted;
 
 	private Vector3 _targetPosition;
 
 	void Start ()
 	{
+		_state = State.NothingGrabbed;
 		_mainCamera = Camera.main;
 		_currentMotionLimit = MotionLimitMax;
-		Grabbable.ThingGrabbedEvent += OnThingGrabbed;
-	}
-
-	void OnDestroy()
-	{
-		Grabbable.ThingGrabbedEvent -= OnThingGrabbed;
 	}
 	
 	void Update ()
 	{
-		if (_grabbedObject == null)
+		switch (_state)
 		{
-			return;
+		case State.NothingGrabbed:
+			UpdateNothingGrabbed();
+			break;
+		case State.Positioning:
+			UpdatePositioning();
+			break;
 		}
+	}
+
+	private void UpdateNothingGrabbed()
+	{
+		if (Input.GetMouseButtonDown(0))
+		{
+			OnThingGrabbed(Instantiate(BallPrefab));
+		}
+	}
+
+	private void UpdatePositioning()
+	{
+		Vector3 finalPosition = GetFinalPosition();
+
+		_grabbedObject.transform.position = finalPosition;
+
+		_zStrength = Mathf.Abs((ZLimitMin + finalPosition.z) / (ZLimitMax - ZLimitMin));
+		Debug.Log(_zStrength);
+
+		_targetPosition = new Vector3(-finalPosition.x * 2, 0, TargetDistanceMin + (_zStrength * (TargetDistanceMax - TargetDistanceMin)));
 
 		if (Input.GetMouseButtonUp(0))
 		{
-			//TEMP - we'll want to see it drop later
-			// also, if you let go too soon after grabbing, don't penalise
-			Destroy(_grabbedObject.GetComponent<Grabbable>());
-			_grabbedObject.GetComponent<LaunchThing>().Launch(_targetPosition, _relativePosition);
+			// TODO if you let go too soon after grabbing, don't penalise
+			_grabbedObject.GetComponent<Launchable>().Launch(_targetPosition, _zStrength);
 			_grabbedObject = null;
+			_state = State.NothingGrabbed;
 			return;
 		}
-
-		Vector3 currentScreenSpace = new Vector3(_startScreenSpace.x, _startScreenSpace.y, Input.mousePosition.y * _currentMotionLimit); 
-
-		Vector3 curPosition = Camera.main.ScreenToWorldPoint(currentScreenSpace) + _offset;
-
-		curPosition.z = Mathf.Clamp(curPosition.z, ZLimit, 0);
-
-		Debug.Log(curPosition.z / ZLimit);
-		_relativePosition = Mathf.Abs(curPosition.z / ZLimit);
-		_currentMotionLimit = MotionLimitMin + ((1 - _relativePosition) * (MotionLimitMax - MotionLimitMin));
-
-		_grabbedObject.transform.position = new Vector3(_grabbedObject.transform.position.x, _grabbedObject.transform.position.y, curPosition.z);
-
-		_targetPosition = new Vector3(0, 0, TargetDistanceMin + (_relativePosition * (TargetDistanceMax - TargetDistanceMin)));
-		Debug.Log(_targetPosition);
 	}
 
 	void OnDrawGizmos()
 	{
-		Gizmos.DrawSphere(_targetPosition, 1);
+		if (Application.isPlaying)
+		{
+			Gizmos.DrawSphere(_targetPosition, 1);
+		}
 	}
 
-	private void OnThingGrabbed(Grabbable thing)
+	private Vector3 GetFinalPosition()
 	{
-		_grabbedObject = thing.gameObject;
+		var yDiff = _initialMousePosition.y - Input.mousePosition.y;
+		Vector3 currentScreenSpace = new Vector3(Input.mousePosition.x, _initialMousePosition.y - yDiff, _initialMousePosition.z);
+		Vector3 curPosition = Camera.main.ScreenToWorldPoint(currentScreenSpace) + _offset;
+		Vector3 finalPosition = new Vector3(curPosition.x, _grabbedObject.transform.position.y, curPosition.y);
+		finalPosition.z = Mathf.Clamp(finalPosition.z, ZLimitMin, ZLimitMax);
+		return finalPosition;
+	}
 
-		_startScreenSpace = _mainCamera.WorldToScreenPoint(_grabbedObject.transform.position);
-		_offset = _grabbedObject.transform.position - _mainCamera.ScreenToWorldPoint(new Vector3(_startScreenSpace.x, _startScreenSpace.y, Input.mousePosition.y * _currentMotionLimit));
+	private void OnThingGrabbed(GameObject gameObject)
+	{
+		_grabbedObject = gameObject;
+
+		Destroy(_grabbedObject.GetComponent<Grabbable>());
+
+		_initialMousePosition = Input.mousePosition;
+
+		_initialMousePosition.z = _mainCamera.WorldToScreenPoint(_grabbedObject.transform.position).z;
+
+		_offset = _grabbedObject.transform.position - _mainCamera.ScreenToWorldPoint(_initialMousePosition);
+
+		_grabbedObject.transform.position = GetFinalPosition();
+
+		_state = State.Positioning;
 	}
 }
