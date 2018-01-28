@@ -15,10 +15,14 @@ public class CustomerSatisfaction : MonoBehaviour
 	public float SatisfactionDrainRate;
 	public float SatisfactionDrainIncreaseRate;
 
+	public TextMesh ScoreText;
+	public TextMesh ScoreText2;
+
 	private float _currentSatisfaction;
 	private float _currentDrainRate;
 
 	private bool _isGameInProgress = true;
+	private int _score = 0;
 
 	private static CustomerSatisfaction instance;
 
@@ -78,6 +82,7 @@ public class CustomerSatisfaction : MonoBehaviour
 
 		Shader.SetGlobalFloat("_FillAmt", _currentSatisfaction);
 
+		ScoreText2.text = ScoreText.text = _score.ToString ();
 	}
 
 	void OnMessageReceived (Recipient recipient, bool isCorrectRecipient)
@@ -85,6 +90,7 @@ public class CustomerSatisfaction : MonoBehaviour
 		if (isCorrectRecipient)
 		{
 			_currentSatisfaction += BonusForRightRecipient;
+			_score++;
 		}
 		else
 		{
@@ -99,6 +105,7 @@ public class CustomerSatisfaction : MonoBehaviour
 
 	void OnResetGame ()
 	{
+		_score = 0;
 		_currentSatisfaction = MaxSatisfaction;
 		_currentDrainRate = SatisfactionDrainRate;
 		_isGameInProgress = true;
