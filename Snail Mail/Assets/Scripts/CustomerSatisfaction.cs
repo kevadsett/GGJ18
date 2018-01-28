@@ -113,5 +113,8 @@ public class CustomerSatisfaction : MonoBehaviour
 		_currentSatisfaction = MaxSatisfaction;
 		_currentDrainRate = SatisfactionDrainRate;
 		_isGameInProgress = true;
+
+		Recipient.OnMessageReceived += OnMessageReceived;
+		Launchable.OnFailedToImpact += OnFailedToImpact;
 	}
 }
