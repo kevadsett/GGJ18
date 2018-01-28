@@ -58,7 +58,7 @@ public class CustomerSatisfaction : MonoBehaviour
 
 		_currentSatisfaction -= SatisfactionDrainRate * Time.deltaTime;
 
-		Mathf.Clamp(_currentSatisfaction, 0, MaxSatisfaction);
+		_currentSatisfaction = Mathf.Clamp(_currentSatisfaction, 0, MaxSatisfaction);
 
 		if (_currentSatisfaction <= 0)
 		{
