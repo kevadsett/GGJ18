@@ -15,9 +15,14 @@ public class CritterSpawner : MonoBehaviour
 	private Dictionary<string, GameObject> _namesToPrefab = new Dictionary<string, GameObject>();
 	private Dictionary<string, int> _critterCounts = new Dictionary<string, int>();
 
+	private bool _isGameInProgress = true;
+
+	private readonly List<IEnumerator> _currentCoroutines = new List<IEnumerator>();
+
 	void Start ()
 	{
 		Recipient.OnMessageReceived += OnMessageReceived;
+		CustomerSatisfaction.OnZeroSatisfaction += OnZeroSatisfaction;
 
 		CritterPrefabs.ForEach(prefab =>
 		{
@@ -32,10 +37,16 @@ public class CritterSpawner : MonoBehaviour
 	void OnDestroy()
 	{
 		Recipient.OnMessageReceived -= OnMessageReceived;
+		CustomerSatisfaction.OnZeroSatisfaction -= OnZeroSatisfaction;
 	}
 
 	void Update()
 	{
+		if (_isGameInProgress == false)
+		{
+			return;
+		}
+
 		for (var i = 0; i < _prefabNames.Count; i++)
 		{
 			string prefabName = _prefabNames[i];
@@ -43,13 +54,17 @@ public class CritterSpawner : MonoBehaviour
 			_critterCounts.TryGetValue(prefabName, out count);
 			if (count == 0)
 			{
-				StartCoroutine(WaitAndSpawn(prefabName, 0.5f));
+				var coroutine = WaitAndSpawn(prefabName, 0.5f);
+				_currentCoroutines.Add(coroutine);
+				StartCoroutine(coroutine);
 			}
 		}
 
 		if (_spawnedCritters.Count < MaxCritters && !_waitingToSpawn)
 		{
-			StartCoroutine(WaitAndSpawn());
+			var coroutine = WaitAndSpawn();
+			_currentCoroutines.Add(coroutine);
+			StartCoroutine(coroutine);
 		}
 	}
 
@@ -103,5 +118,11 @@ public class CritterSpawner : MonoBehaviour
 			_critterCounts[recipientGameObject.name]--;
 			_spawnedCritters.Remove(recipientGameObject);
 		}
+	}
+
+	private void OnZeroSatisfaction()
+	{
+		_isGameInProgress = false;
+		_currentCoroutines.ForEach(StopCoroutine);
 	}
 }

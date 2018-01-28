@@ -98,6 +98,8 @@ public class Recipient : MonoBehaviour
 
 	void OnZeroSatisfaction ()
 	{
+		var randomOffset = new Vector3((Random.value * 2) - 1, -0.1f, (Random.value * 2) - 1) * 0.5f;
+		_rb.AddExplosionForce(500, transform.position + randomOffset, 2.5f);
 		React(false);
 	}
 }

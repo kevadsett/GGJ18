@@ -128,11 +128,6 @@ public class PaperThrower : MonoBehaviour
 
 		var yStrength = (finalPosition.y - YLimitMin) / (YLimitMax - YLimitMin);
 
-		Debug.Log(YLimitMin);
-		Debug.Log(YLimitMax);
-		Debug.Log(finalPosition.y);
-		Debug.Log(yStrength);
-
 		_targetPosition = new Vector3(-finalPosition.x * Spread, 0, TargetDistanceMin + (yStrength * (TargetDistanceMax - TargetDistanceMin)));
 
 		TargetObject.transform.position = _targetPosition;

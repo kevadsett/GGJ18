@@ -18,6 +18,8 @@ public class CustomerSatisfaction : MonoBehaviour
 
 	private float _currentSatisfaction;
 
+	private bool _isGameInProgress = true;
+
 	void Start ()
 	{
 		_currentSatisfaction = MaxSatisfaction;
@@ -33,6 +35,11 @@ public class CustomerSatisfaction : MonoBehaviour
 
 	void Update()
 	{
+		if (_isGameInProgress == false)
+		{
+			return;
+		}
+
 		_currentSatisfaction -= SatisfactionDrainRate * Time.deltaTime;
 
 		Mathf.Clamp(_currentSatisfaction, 0, MaxSatisfaction);
@@ -43,6 +50,10 @@ public class CustomerSatisfaction : MonoBehaviour
 			{
 				OnZeroSatisfaction();
 			}
+			_isGameInProgress = false;
+			Recipient.OnMessageReceived -= OnMessageReceived;
+			Launchable.OnFailedToImpact -= OnFailedToImpact;
+			_currentSatisfaction = 0;
 		}
 
 		DummySatisfactionDisplay.text = _currentSatisfaction.ToString();
