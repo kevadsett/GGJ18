@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PaperThrower : MonoBehaviour
 {
+	public delegate void LetterGrabbedAction();
+	public static event LetterGrabbedAction OnLetterGrabbed;
+
 	public GameObject BallPrefab;
 	public float YLimitMin = -2f;
 	public float YLimitMax = 2f;
@@ -77,6 +80,10 @@ public class PaperThrower : MonoBehaviour
 
 		if (Input.GetMouseButtonDown(0) && Vector3.Distance (mvpos, GrabViewPoint) < GrabViewRadius)
 		{
+			if (OnLetterGrabbed != null)
+			{
+				OnLetterGrabbed();
+			}
 			OnThingGrabbed (Instantiate(BallPrefab));
 		}
 	}
