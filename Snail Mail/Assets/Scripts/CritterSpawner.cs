@@ -9,7 +9,6 @@ public class CritterSpawner : MonoBehaviour
 	public float MaxCritters;
 	public float MaxWait;
 
-	private Camera _mainCamera;
 	private List<GameObject> _spawnedCritters = new List<GameObject>();
 	private bool _waitingToSpawn;
 	private List<string> _prefabNames = new List<string>();
@@ -18,7 +17,6 @@ public class CritterSpawner : MonoBehaviour
 
 	void Start ()
 	{
-		_mainCamera = Camera.main;
 		Recipient.OnMessageReceived += OnMessageReceived;
 
 		CritterPrefabs.ForEach(prefab =>

@@ -5,8 +5,6 @@ using UnityEngine;
 public class PaperThrower : MonoBehaviour
 {
 	public GameObject BallPrefab;
-	public float MotionLimitMax = 0.01f;
-	public float MotionLimitMin = 0.001f;
 	public float ZLimitMin = -2f;
 	public float ZLimitMax = 2f;
 	public float TargetDistanceMax = 10;
@@ -30,7 +28,6 @@ public class PaperThrower : MonoBehaviour
 	private GameObject _grabbedObject;
 	private Vector3 _initialMousePosition;
 	private Vector3 _offset;
-	private float _currentMotionLimit;
 	private float _zStrength;
 
 	private float _timePositioningStarted;
@@ -57,7 +54,6 @@ public class PaperThrower : MonoBehaviour
 	{
 		_state = State.NothingGrabbed;
 		_mainCamera = Camera.main;
-		_currentMotionLimit = MotionLimitMax;
 	}
 	
 	void Update ()
