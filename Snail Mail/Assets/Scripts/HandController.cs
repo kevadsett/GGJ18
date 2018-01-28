@@ -29,7 +29,7 @@ public class HandController : MonoBehaviour {
 	Vector3 GetConstrainedMousePosition () {
 
 		Vector3 mpos = Input.mousePosition;
-		mpos.x = Mathf.Clamp (mpos.x, 0f, Screen.width);
+		// mpos.x = Mathf.Clamp (mpos.x, 0f, Screen.width); <.<
 		mpos.y = Mathf.Clamp (mpos.y, 0f, Screen.height * yScreenSpaceLimit);
 
 		return mpos;

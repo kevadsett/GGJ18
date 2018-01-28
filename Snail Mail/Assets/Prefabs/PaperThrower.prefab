@@ -56,10 +56,12 @@ MonoBehaviour:
   MotionLimitMin: 0.001
   ZLimitMin: -2
   ZLimitMax: 2
-  TargetDistanceMax: 60
+  TargetDistanceMax: 56
   TargetDistanceMin: 5
   ArrowScaleMin: 1
   ArrowScaleMax: 4
-  Spread: 4.2
+  Spread: 3.8
   ArrowObject: {fileID: 0}
   TargetObject: {fileID: 0}
+  GrabViewRadius: 0.23
+  GrabViewPoint: {x: 0, y: -0.4, z: 0}

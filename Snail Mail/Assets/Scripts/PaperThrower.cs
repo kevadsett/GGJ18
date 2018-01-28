@@ -16,6 +16,8 @@ public class PaperThrower : MonoBehaviour
 	public float Spread = 3;
 	public GameObject ArrowObject;
 	public GameObject TargetObject;
+	public float GrabViewRadius;
+	public Vector3 GrabViewPoint;
 
 	private enum State { NothingGrabbed, Positioning, SettingPower };
 	private State _state;
@@ -53,8 +55,20 @@ public class PaperThrower : MonoBehaviour
 
 	private void UpdateNothingGrabbed()
 	{
-		if (Input.GetMouseButtonDown(0))
+		Vector3 mpos = HandController.ConstrainedMousePos ();
+		Vector3 mvpos = _mainCamera.ScreenToViewportPoint (mpos);
+		mvpos.x = mvpos.x * 2f - 1f;
+		mvpos.y = mvpos.y * 2f - 1f;
+
+		Vector3 vpos = GrabViewPoint;
+		vpos.z = mvpos.z;
+
+		Debug.Log (mvpos);
+
+		if (Input.GetMouseButtonDown(0) && Vector3.Distance (mvpos, GrabViewPoint) < GrabViewRadius)
 		{
+			Debug.Log ("GRAB!!! " + mvpos);
+
 			OnThingGrabbed(Instantiate(BallPrefab));
 		}
 	}
