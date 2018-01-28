@@ -52,10 +52,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BallPrefab: {fileID: 1709210167651488, guid: 4ebad3af0d6ab48069b166064cef6306, type: 2}
-  MotionLimitMax: 0.01
-  MotionLimitMin: 0.001
-  ZLimitMin: -2
-  ZLimitMax: 2
+  YLimitMin: 2
+  YLimitMax: 3.8
   TargetDistanceMax: 56
   TargetDistanceMin: 5
   ArrowScaleMin: 1

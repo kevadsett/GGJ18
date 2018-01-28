@@ -5,8 +5,8 @@ using UnityEngine;
 public class PaperThrower : MonoBehaviour
 {
 	public GameObject BallPrefab;
-	public float ZLimitMin = -2f;
-	public float ZLimitMax = 2f;
+	public float YLimitMin = -2f;
+	public float YLimitMax = 2f;
 	public float TargetDistanceMax = 10;
 	public float TargetDistanceMin = 1;
 	public float ArrowScaleMin = 4;
@@ -27,8 +27,6 @@ public class PaperThrower : MonoBehaviour
 	private Camera _mainCamera;
 	private GameObject _grabbedObject;
 	private Vector3 _initialMousePosition;
-	private Vector3 _offset;
-	private float _zStrength;
 
 	private Vector3 _targetPosition;
 
@@ -124,21 +122,26 @@ public class PaperThrower : MonoBehaviour
 
 		_grabbedObject.transform.position = finalPosition;
 
-		_zStrength = Mathf.Abs((ZLimitMin + finalPosition.z) / (ZLimitMax - ZLimitMin));
+		var yStrength = (finalPosition.y - YLimitMin) / (YLimitMax - YLimitMin);
 
-		_targetPosition = new Vector3(-finalPosition.x * Spread, 0, TargetDistanceMin + (_zStrength * (TargetDistanceMax - TargetDistanceMin)));
+		Debug.Log(YLimitMin);
+		Debug.Log(YLimitMax);
+		Debug.Log(finalPosition.y);
+		Debug.Log(yStrength);
+
+		_targetPosition = new Vector3(-finalPosition.x * Spread, 0, TargetDistanceMin + (yStrength * (TargetDistanceMax - TargetDistanceMin)));
 
 		Vector3 relativePos = _targetPosition - _grabbedObject.transform.position;
 		Quaternion rotation = Quaternion.LookRotation(relativePos);
 		ArrowObject.transform.rotation = rotation;
-		ArrowObject.transform.localScale = new Vector3(ArrowObject.transform.localScale.x, ArrowObject.transform.localScale.y, ArrowScaleMin + (_zStrength * (ArrowScaleMax - ArrowScaleMin)));
+		ArrowObject.transform.localScale = new Vector3(ArrowObject.transform.localScale.x, ArrowObject.transform.localScale.y, ArrowScaleMin + (yStrength * (ArrowScaleMax - ArrowScaleMin)));
 
 		TargetObject.transform.position = _targetPosition;
 
 		if (Input.GetMouseButtonUp(0))
 		{
 			// TODO if you let go too soon after grabbing, don't penalise
-			_grabbedObject.GetComponent<Launchable>().Launch(_targetPosition, _zStrength);
+			_grabbedObject.GetComponent<Launchable>().Launch(_targetPosition, yStrength);
 			_grabbedObject = null;
 			_state = State.NothingGrabbed;
 			TargetObject.SetActive(false);
@@ -157,13 +160,11 @@ public class PaperThrower : MonoBehaviour
 	private Vector3 GetFinalPosition()
 	{
 		Vector3 mpos = HandController.ConstrainedMousePos ();
-
-		var yDiff = _initialMousePosition.y - mpos.y;
-		Vector3 currentScreenSpace = new Vector3(mpos.x, _initialMousePosition.y - yDiff, _initialMousePosition.z);
-		Vector3 curPosition = Camera.main.ScreenToWorldPoint(currentScreenSpace) + _offset;
-		Vector3 finalPosition = new Vector3(curPosition.x, _grabbedObject.transform.position.y, curPosition.y);
-		finalPosition.z = Mathf.Clamp(finalPosition.z, ZLimitMin, ZLimitMax);
-		return finalPosition;
+		Vector3 curPosition = Camera.main.ScreenToWorldPoint(new Vector3(mpos.x, mpos.y, _initialMousePosition.z));
+		curPosition.x *= 0.8f;
+		curPosition.y *= 0.9f;
+		curPosition.y += 0.2f;
+		return curPosition;
 	}
 
 	private void OnThingGrabbed(GameObject gameObject)
@@ -179,8 +180,6 @@ public class PaperThrower : MonoBehaviour
 
 		_initialMousePosition.z = _mainCamera.WorldToScreenPoint(_grabbedObject.transform.position).z;
 
-		_offset = _grabbedObject.transform.position - _mainCamera.ScreenToWorldPoint(_initialMousePosition);
-
 		_grabbedObject.transform.position = GetFinalPosition();
 
 		LetterQueue.LetterGrabbed ();
@@ -191,8 +190,6 @@ public class PaperThrower : MonoBehaviour
 	private void OnShotLoaded()
 	{
 		TargetObject.SetActive(true);
-
-		_offset = _grabbedObject.transform.position - _mainCamera.ScreenToWorldPoint(_initialMousePosition);
 
 		_grabbedObject.transform.position = GetFinalPosition();
 
