@@ -9,10 +9,7 @@ public class PaperThrower : MonoBehaviour
 	public float YLimitMax = 2f;
 	public float TargetDistanceMax = 10;
 	public float TargetDistanceMin = 1;
-	public float ArrowScaleMin = 4;
-	public float ArrowScaleMax = 10;
 	public float Spread = 3;
-	public GameObject ArrowObject;
 	public GameObject TargetObject;
 
 	public float LoadViewRadius;
@@ -130,11 +127,6 @@ public class PaperThrower : MonoBehaviour
 		Debug.Log(yStrength);
 
 		_targetPosition = new Vector3(-finalPosition.x * Spread, 0, TargetDistanceMin + (yStrength * (TargetDistanceMax - TargetDistanceMin)));
-
-		Vector3 relativePos = _targetPosition - _grabbedObject.transform.position;
-		Quaternion rotation = Quaternion.LookRotation(relativePos);
-		ArrowObject.transform.rotation = rotation;
-		ArrowObject.transform.localScale = new Vector3(ArrowObject.transform.localScale.x, ArrowObject.transform.localScale.y, ArrowScaleMin + (yStrength * (ArrowScaleMax - ArrowScaleMin)));
 
 		TargetObject.transform.position = _targetPosition;
 
