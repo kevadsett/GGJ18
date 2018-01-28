@@ -43,9 +43,10 @@ public class Launchable : MonoBehaviour {
 		float normalisedHeight = YTrajectory.Evaluate(progress);
 
 		float xPos = _startPos.x + (progress * (_target.x - _startPos.x));
+
 		float currentLowY = _startPos.y + (progress * (_target.y - _startPos.y));
+
 		float yPos = currentLowY + (normalisedHeight * (_launchHeight - currentLowY));
-//		Debug.Log("_startPos.y: " + _startPos.y + ", yProgress: " + height + " _target.y: " + _target.y + ", yPos: " + yPos);
 		float zPos = _startPos.z + (progress * (_target.z - _startPos.z));
 
 		transform.position = new Vector3(xPos, yPos, zPos);
@@ -59,6 +60,12 @@ public class Launchable : MonoBehaviour {
 	public void Impact()
 	{
 		HasImpacted = true;
+	}
+
+	public void DropItLikeItsHot(Vector3 colPoint)
+	{
+		_startPos.x = _target.x = colPoint.x;
+		_startPos.z = _target.z = colPoint.z;
 	}
 
 	public void Launch(Vector3 target, float strength)
