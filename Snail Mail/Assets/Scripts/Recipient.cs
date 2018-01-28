@@ -9,6 +9,10 @@ public class Recipient : MonoBehaviour
 	[SerializeField] float despawnTime;
 	[SerializeField] float despawnAnimSpeed;
 
+
+	public delegate void MessageReceivedAction(Recipient recipient, bool isCorrectRecipient);
+	public static event  MessageReceivedAction OnMessageReceived;
+
 	private Rigidbody _rb;
 	private bool hasBeenMurdererdWithMail = false;
 	private bool readyToAnimateOut = false;
@@ -39,10 +43,13 @@ public class Recipient : MonoBehaviour
 
 			if (launchable != null && launchable.HasImpacted == false) {
 				ParticleSystem particles;
-				if (launchable.MyAddressse == addresseeData) {
-					particles = LoveParticles.Instance;
-				} else {
-					particles = AngryParticles.Instance;
+				bool isCorrectRecipient = launchable.MyAddressse == addresseeData;
+
+				particles = isCorrectRecipient ? LoveParticles.Instance : AngryParticles.Instance;
+
+				if (OnMessageReceived != null)
+				{
+					OnMessageReceived(this, isCorrectRecipient);
 				}
 
 				particles.transform.SetParent(Heart, false);
