@@ -30,8 +30,6 @@ public class PaperThrower : MonoBehaviour
 	private Vector3 _offset;
 	private float _zStrength;
 
-	private float _timePositioningStarted;
-
 	private Vector3 _targetPosition;
 
 	private static PaperThrower instance;
