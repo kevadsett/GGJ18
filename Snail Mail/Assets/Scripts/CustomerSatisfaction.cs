@@ -18,6 +18,22 @@ public class CustomerSatisfaction : MonoBehaviour
 
 	private bool _isGameInProgress = true;
 
+	private static CustomerSatisfaction instance;
+
+	public static float CurrentSatisfaction {
+		get {
+			if (instance != null) {
+				return instance._currentSatisfaction;
+			}
+			return 1f;
+		}
+	}
+
+	void Awake ()
+	{
+		instance = this;
+	}
+
 	void Start ()
 	{
 		_currentSatisfaction = MaxSatisfaction;

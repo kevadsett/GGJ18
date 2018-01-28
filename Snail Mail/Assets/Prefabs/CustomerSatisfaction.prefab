@@ -103,7 +103,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4472761179991954}
-  - component: {fileID: 114663007941413158}
+  - component: {fileID: 114836229166475208}
   m_Layer: 5
   m_Name: GameObject
   m_TagString: Untagged
@@ -372,19 +372,6 @@ PolygonCollider2D:
       - {x: 0.62482834, y: -0.56154835}
       - {x: 0.6214142, y: -0.33635765}
       - {x: 0.6155243, y: -0.0033747852}
---- !u!114 &114663007941413158
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1881401758782140}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5298ddb74fe5749ac847c0a59f5ebe77, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  scale: 0.02
-  speed: 13.56
 --- !u!114 &114783707371815016
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -398,6 +385,54 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dirty: 0
   depth: 0.15
+--- !u!114 &114836229166475208
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1881401758782140}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c97b74f2849664feb8bc0ebb1368dd4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  amount: 0.07
+  curve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0.00000052549876
+      value: -0.0011645555
+      inSlope: -0.41976443
+      outSlope: -0.41976443
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0.0020582154
+      value: 0.99924254
+      inSlope: -0.74625015
+      outSlope: -0.74625015
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0.13078597
+      value: 0.81550753
+      inSlope: -2.8556585
+      outSlope: -2.8556585
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0.3504438
+      value: 0.19820343
+      inSlope: -0.5463612
+      outSlope: -0.5463612
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1.0002763
+      value: 0.07623217
+      inSlope: 0.050688244
+      outSlope: 0.050688244
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!114 &114896406059969436
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -414,4 +449,3 @@ MonoBehaviour:
   PenaltyForWrongRecipient: 0.1
   BonusForRightRecipient: 0.25
   SatisfactionDrainRate: 0.05
-  DummySatisfactionDisplay: {fileID: 0}
