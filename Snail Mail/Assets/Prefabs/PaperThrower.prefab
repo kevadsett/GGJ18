@@ -56,9 +56,10 @@ MonoBehaviour:
   MotionLimitMin: 0.001
   ZLimitMin: -2
   ZLimitMax: 2
-  TargetDistanceMax: 25
+  TargetDistanceMax: 60
   TargetDistanceMin: 5
   ArrowScaleMin: 1
   ArrowScaleMax: 4
+  Spread: 4.2
   ArrowObject: {fileID: 0}
   TargetObject: {fileID: 0}
