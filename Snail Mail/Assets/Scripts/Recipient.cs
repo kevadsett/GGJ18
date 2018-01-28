@@ -21,6 +21,12 @@ public class Recipient : MonoBehaviour
 	void Start ()
 	{
 		_rb = GetComponent<Rigidbody>();
+		CustomerSatisfaction.OnZeroSatisfaction += OnZeroSatisfaction;
+	}
+
+	void OnDestroy()
+	{
+		CustomerSatisfaction.OnZeroSatisfaction -= OnZeroSatisfaction;
 	}
 
 	void Update ()
@@ -42,30 +48,34 @@ public class Recipient : MonoBehaviour
 			var launchable = collision.gameObject.GetComponent<Launchable> ();
 
 			if (launchable != null && launchable.HasImpacted == false) {
-				ParticleSystem particles;
-				bool isCorrectRecipient = launchable.MyAddressse == addresseeData;
-
-				particles = isCorrectRecipient ? LoveParticles.Instance : AngryParticles.Instance;
-
-				if (OnMessageReceived != null)
-				{
-					OnMessageReceived(this, isCorrectRecipient);
-				}
-
-				particles.transform.SetParent(Heart, false);
-				particles.transform.localPosition = Vector3.zero;
-				particles.Play();
-
-				Destroy(GetComponent<SideMoving>());
-				_rb.constraints = new RigidbodyConstraints();
-
+				React(launchable.MyAddressse == addresseeData);
 				StartCoroutine(DestroySoon(collision.gameObject));
-				StartCoroutine(FallOverAndDie());
-
 				launchable.Impact();
-				hasBeenMurdererdWithMail = true;
 			}
 		}
+	}
+
+	private void React(bool happy)
+	{
+		ParticleSystem particles;
+
+		particles = happy ? LoveParticles.Instance : AngryParticles.Instance;
+
+		if (OnMessageReceived != null)
+		{
+			OnMessageReceived(this, happy);
+		}
+
+		particles.transform.SetParent(Heart, false);
+		particles.transform.localPosition = Vector3.zero;
+		particles.Play();
+
+		Destroy(GetComponent<SideMoving>());
+		_rb.constraints = new RigidbodyConstraints();
+
+		StartCoroutine(FallOverAndDie());
+
+		hasBeenMurdererdWithMail = true;
 	}
 
 	private IEnumerator FallOverAndDie()
@@ -84,5 +94,10 @@ public class Recipient : MonoBehaviour
 	{
 		yield return new WaitForSeconds(0.1f);
 		Destroy(obj);
+	}
+
+	void OnZeroSatisfaction ()
+	{
+		React(false);
 	}
 }

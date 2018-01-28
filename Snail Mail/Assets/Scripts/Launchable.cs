@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Launchable : MonoBehaviour {
+	public delegate void FailedToImpactAction(Addressee recipient);
+	public static event  FailedToImpactAction OnFailedToImpact;
+
 	public AnimationCurve YTrajectory;
 	public float MaxDuration = 1f;
 	public float MinDuration = 0.3f;
@@ -54,7 +57,10 @@ public class Launchable : MonoBehaviour {
 
 	void FailToImpact()
 	{
-
+		if (OnFailedToImpact != null)
+		{
+			OnFailedToImpact(MyAddressse);
+		}
 	}
 
 	public void Impact()
