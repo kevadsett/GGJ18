@@ -12,4 +12,8 @@ public class Addressee : ScriptableObject {
 	public string Address { get {
 		return addressline1 + "\n" + addressline2;
 	} }
+
+	public string Name { get {
+		return forename + " " + surname;
+	} }
 }
