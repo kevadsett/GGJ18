@@ -78,6 +78,8 @@ public class CustomerSatisfaction : MonoBehaviour
 			Recipient.OnMessageReceived -= OnMessageReceived;
 			Launchable.OnFailedToImpact -= OnFailedToImpact;
 			_currentSatisfaction = 0;
+
+			GameOverParticles.Instance.Play ();
 		}
 
 		Shader.SetGlobalFloat("_FillAmt", _currentSatisfaction);
