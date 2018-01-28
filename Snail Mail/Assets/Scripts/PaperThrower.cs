@@ -189,6 +189,8 @@ public class PaperThrower : MonoBehaviour
 
 		_grabbedObject.transform.position = GetFinalPosition();
 
+		LetterQueue.LetterGrabbed ();
+
 		_state = State.Loading;
 	}
 
