@@ -1192,7 +1192,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5298ddb74fe5749ac847c0a59f5ebe77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scale: 0.02
+  scale: 0.04
   speed: 10
 --- !u!114 &114619767867433670
 MonoBehaviour:
@@ -1208,7 +1208,7 @@ MonoBehaviour:
   gameDatabase: {fileID: 11400000, guid: 153ce5cca332d4bd89eae5f1225c7c33, type: 2}
   animFromRotation: {x: -3, y: -10, z: -15}
   animFromScale: {x: 0.6, y: 0.6, z: 0.6}
-  animSpeed: 2
+  animSpeed: 1.5
   rotationCurve:
     serializedVersion: 2
     m_Curve:
