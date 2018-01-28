@@ -16,6 +16,10 @@ public class PaperThrower : MonoBehaviour
 	public float Spread = 3;
 	public GameObject ArrowObject;
 	public GameObject TargetObject;
+
+	public float LoadViewRadius;
+	public Vector3 LoadViewPoint;
+
 	public float GrabViewRadius;
 	public Vector3 GrabViewPoint;
 
@@ -79,10 +83,10 @@ public class PaperThrower : MonoBehaviour
 		mvpos.x = mvpos.x * 2f - 1f;
 		mvpos.y = mvpos.y * 2f - 1f;
 
-		Vector3 vpos = GrabViewPoint;
+		Vector3 vpos = LoadViewPoint;
 		vpos.z = mvpos.z;
 
-		if (Input.GetMouseButton(0))
+		if (Input.GetMouseButton(0) && Vector3.Distance (mvpos, GrabViewPoint) < GrabViewRadius)
 		{
 			OnThingGrabbed (Instantiate(BallPrefab));
 		}
@@ -95,10 +99,10 @@ public class PaperThrower : MonoBehaviour
 		mvpos.x = mvpos.x * 2f - 1f;
 		mvpos.y = mvpos.y * 2f - 1f;
 
-		Vector3 vpos = GrabViewPoint;
+		Vector3 vpos = LoadViewPoint;
 		vpos.z = mvpos.z;
 
-		if (Input.GetMouseButton(0) && Vector3.Distance (mvpos, GrabViewPoint) < GrabViewRadius)
+		if (Input.GetMouseButton(0) && Vector3.Distance (mvpos, LoadViewPoint) < LoadViewRadius)
 		{
 			OnShotLoaded();
 		}
@@ -176,8 +180,8 @@ public class PaperThrower : MonoBehaviour
 
 		Destroy(_grabbedObject.GetComponent<Grabbable>());
 
-		_initialMousePosition = new Vector3 (GrabViewPoint.x * 0.5f + 0.5f * Screen.width,
-			GrabViewPoint.y * 0.5f + 0.5f * Screen.height, 0f);
+		_initialMousePosition = new Vector3 (LoadViewPoint.x * 0.5f + 0.5f * Screen.width,
+			LoadViewPoint.y * 0.5f + 0.5f * Screen.height, 0f);
 
 		_initialMousePosition.z = _mainCamera.WorldToScreenPoint(_grabbedObject.transform.position).z;
 
