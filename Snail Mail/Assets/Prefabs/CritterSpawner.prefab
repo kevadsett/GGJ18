@@ -58,6 +58,7 @@ MonoBehaviour:
   SpawnPoints:
   - {fileID: 0}
   - {fileID: 0}
+  - {fileID: 0}
   MaxCritters: 10
   MaxWait: 5
   MinSpeed: 1
