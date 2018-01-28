@@ -14,8 +14,6 @@ public class CustomerSatisfaction : MonoBehaviour
 	public float BonusForRightRecipient;
 	public float SatisfactionDrainRate;
 
-	public Text DummySatisfactionDisplay;
-
 	private float _currentSatisfaction;
 
 	private bool _isGameInProgress = true;
@@ -56,7 +54,7 @@ public class CustomerSatisfaction : MonoBehaviour
 			_currentSatisfaction = 0;
 		}
 
-		DummySatisfactionDisplay.text = _currentSatisfaction.ToString();
+		Shader.SetGlobalFloat("_FillAmt", _currentSatisfaction);
 
 	}
 

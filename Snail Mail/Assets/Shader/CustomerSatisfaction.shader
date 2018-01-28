@@ -5,7 +5,6 @@
 		_EmptyTex ("Empty", 2D) = "white" {}
 		_FullTex1 ("Full 1", 2D) = "white" {}
 		_FullTex2 ("Full 2", 2D) = "white" {}
-		_FillAmt ("Fill Amount", Range(0, 1)) = 0.8
 		_T2Ratio ("Full 2 Ratio", Range(0, 1)) = 0.3
 		_TopOffset ("Fill Top Offset", Range (0, 1)) = 1.0
 		_BtmOffset ("Fill Bottom Offset", Range (0, 1)) = 0.0
