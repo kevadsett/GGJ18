@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 27987ace5e8ce410b84830c895ad3cb8
+timeCreated: 1517098560
+licenseType: Pro
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Just Another Hand
+  fontNames:
+  - Just Another Hand
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
