@@ -649,7 +649,7 @@ MonoBehaviour:
   PenaltyForMiss: 0.125
   PenaltyForWrongRecipient: 0.125
   BonusForRightRecipient: 0.25
-  SatisfactionDrainRate: 0.025
-  SatisfactionDrainIncreaseRate: 0.00125
+  SatisfactionDrainRate: 0.01
+  SatisfactionDrainIncreaseRate: 0.0012
   ScoreTextMesh: {fileID: 102981365408221132}
   ScoreTextMesh2: {fileID: 102996037015822440}
