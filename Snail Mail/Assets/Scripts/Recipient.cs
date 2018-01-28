@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Recipient : MonoBehaviour
 {
-	public ParticleSystem Particles;
 	public Transform Heart;
 
 	private Rigidbody _rb;
@@ -17,11 +16,13 @@ public class Recipient : MonoBehaviour
 	{
 		if (collision.gameObject.tag == "LetterBall")
 		{
+			var particles = LoveParticles.Instance;
+
 			Destroy(GetComponent<SideMoving>());
 			_rb.constraints = new RigidbodyConstraints();
-			Particles.transform.SetParent(Heart, false);
-			Particles.transform.localPosition = Vector3.zero;
-			Particles.Play();
+			particles.transform.SetParent(Heart, false);
+			particles.transform.localPosition = Vector3.zero;
+			particles.Play();
 			StartCoroutine(DestroySoon(collision.gameObject));
 		}
 	}
