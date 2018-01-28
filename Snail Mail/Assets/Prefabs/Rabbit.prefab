@@ -268,8 +268,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fc6a924bee6548cc86f1014ea5f10de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Particles: {fileID: 0}
   Heart: {fileID: 4267987883214080}
+  addresseeData: {fileID: 11400000, guid: dd88657ce53e74e75a764c9a275f9a7a, type: 2}
 --- !u!114 &114420322374741550
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Recipient : MonoBehaviour
 {
-	public Transform Heart;
+	[SerializeField] Transform Heart;
+	[SerializeField] Addressee addresseeData;
 
 	private Rigidbody _rb;
 	void Start ()

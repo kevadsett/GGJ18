@@ -16,6 +16,8 @@ public class Launchable : MonoBehaviour {
 	private float _launchDuration;
 	private float _launchHeight;
 
+	public Addressee MyAddressse { get; private set; }
+
 	void Update ()
 	{
 		if (_inFlight == false)
@@ -46,6 +48,9 @@ public class Launchable : MonoBehaviour {
 
 	public void Launch(Vector3 target, float strength)
 	{
+		MyAddressse = LetterQueue.CurrentAddressee;
+		LetterQueue.LetterLaunched ();
+
 		_startPos = transform.position;
 		_target = target;
 		_inFlight = true;

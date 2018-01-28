@@ -16,13 +16,16 @@ public class LetterQueue : MonoBehaviour {
 	[SerializeField] TextMesh addresseeText;
 	[SerializeField] TextMesh addressText;
 
+	public static Addressee CurrentAddressee { get; private set; }
+	public static System.Action LetterLaunched { get; private set; }
+
 	float timer = 1f;
 
-	void Update () {
-		if (Input.GetKeyDown (KeyCode.Space)) {
-			SetupNextAdressee (gameDatabase.addressees[0]);
-		}
+	void Awake () {
+		LetterLaunched = OnLaunched;
+	}
 
+	void Update () {
 		if (timer >= 1f) {
 			return;
 		}
@@ -39,7 +42,18 @@ public class LetterQueue : MonoBehaviour {
 		timer += Time.deltaTime * animSpeed;
 	}
 
+	void OnLaunched () {
+		Addressee selected = CurrentAddressee;
+		while (selected == CurrentAddressee) {
+			selected = gameDatabase.addressees [Random.Range (0, gameDatabase.addressees.Length)];
+		}
+
+		SetupNextAdressee (selected);
+	}
+
 	void SetupNextAdressee (Addressee addressee) {
+		CurrentAddressee = addressee;
+
 		addresseeText.text = addressee.Name;
 		addressText.text = addressee.Address;
 
