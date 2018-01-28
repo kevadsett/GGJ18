@@ -292,6 +292,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Heart: {fileID: 4914663314554550}
-  addresseeData: {fileID: 11400000, guid: 39dbe8adc711f4caeb7ced13631c13f1, type: 2}
+  addresseeData: {fileID: 11400000, guid: ff0b30077a5b1426b9945875b4e9ffcf, type: 2}
   despawnTime: 1.5
   despawnAnimSpeed: 7

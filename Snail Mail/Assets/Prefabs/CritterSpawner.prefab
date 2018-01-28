@@ -55,6 +55,10 @@ MonoBehaviour:
   - {fileID: 1508734512526700, guid: 956eebe46395c4bf7a3ddf3c161a588f, type: 2}
   - {fileID: 1386844807527074, guid: 428686f6da10049c9bfda960583a4010, type: 2}
   - {fileID: 1349814589747006, guid: db4f4187148064316937e56dce25cc16, type: 2}
+  - {fileID: 1487402674037240, guid: 47dfc8cfa72ef4aefb024019b2956215, type: 2}
+  - {fileID: 1451765160958874, guid: 453859d30671742d6b38790a9c6a3bd2, type: 2}
+  - {fileID: 1517648071140208, guid: 23004de573371438f8ee8e40718328fb, type: 2}
+  - {fileID: 1725401480987546, guid: ff5213f726d9d425295937e2079ca385, type: 2}
   SpawnPoints:
   - {fileID: 0}
   - {fileID: 0}
