@@ -6,13 +6,25 @@ public class Recipient : MonoBehaviour
 {
 	[SerializeField] Transform Heart;
 	[SerializeField] Addressee addresseeData;
+	[SerializeField] float despawnTime;
+	[SerializeField] float despawnAnimSpeed;
 
 	private Rigidbody _rb;
 	private bool hasBeenMurdererdWithMail = false;
+	private bool readyToAnimateOut = false;
+	private float animOutTimer;
 
 	void Start ()
 	{
 		_rb = GetComponent<Rigidbody>();
+	}
+
+	void Update ()
+	{
+		if (readyToAnimateOut) {
+			transform.localScale = Vector3.one * Mathf.Clamp01 (1f - animOutTimer);
+			animOutTimer += Time.deltaTime * despawnAnimSpeed;
+		}
 	}
 
 	void OnCollisionEnter(Collision collision)
@@ -41,11 +53,24 @@ public class Recipient : MonoBehaviour
 				_rb.constraints = new RigidbodyConstraints();
 
 				StartCoroutine(DestroySoon(collision.gameObject));
+				StartCoroutine(FallOverAndDie());
 
 				launchable.Impact();
 				hasBeenMurdererdWithMail = true;
 			}
 		}
+	}
+
+	private IEnumerator FallOverAndDie()
+	{
+		yield return new WaitForSeconds (despawnTime);
+
+		ParticleSystem particles = RegularParticles.Instance;
+		particles.transform.SetParent(Heart, false);
+		particles.transform.localPosition = Vector3.zero;
+		particles.Play();
+
+		readyToAnimateOut = true;
 	}
 
 	private IEnumerator DestroySoon(GameObject obj)
