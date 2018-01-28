@@ -23,6 +23,7 @@ public class LetterQueue : MonoBehaviour {
 
 	void Awake () {
 		LetterLaunched = OnLaunched;
+		OnLaunched ();
 	}
 
 	void Update () {

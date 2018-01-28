@@ -17,6 +17,7 @@ public class Launchable : MonoBehaviour {
 	private float _launchHeight;
 
 	public Addressee MyAddressse { get; private set; }
+	public bool HasImpacted { get; private set; }
 
 	void Update ()
 	{
@@ -29,6 +30,10 @@ public class Launchable : MonoBehaviour {
 
 		if (progress >= 1)
 		{
+			if (HasImpacted == false) {
+				FailToImpact();
+			}
+
 			_inFlight = false;
 			transform.position = _target;
 			Destroy(GetComponent<CapsuleCollider>());
@@ -44,6 +49,16 @@ public class Launchable : MonoBehaviour {
 		float zPos = _startPos.z + (progress * (_target.z - _startPos.z));
 
 		transform.position = new Vector3(xPos, yPos, zPos);
+	}
+
+	void FailToImpact()
+	{
+
+	}
+
+	public void Impact()
+	{
+		HasImpacted = true;
 	}
 
 	public void Launch(Vector3 target, float strength)

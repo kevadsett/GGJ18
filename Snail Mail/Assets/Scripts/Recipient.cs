@@ -8,6 +8,8 @@ public class Recipient : MonoBehaviour
 	[SerializeField] Addressee addresseeData;
 
 	private Rigidbody _rb;
+	private bool hasBeenMurdererdWithMail = false;
+
 	void Start ()
 	{
 		_rb = GetComponent<Rigidbody>();
@@ -15,16 +17,34 @@ public class Recipient : MonoBehaviour
 
 	void OnCollisionEnter(Collision collision)
 	{
+		if (hasBeenMurdererdWithMail) {
+			return;
+		}
+
 		if (collision.gameObject.tag == "LetterBall")
 		{
-			var particles = LoveParticles.Instance;
+			var launchable = collision.gameObject.GetComponent<Launchable> ();
 
-			Destroy(GetComponent<SideMoving>());
-			_rb.constraints = new RigidbodyConstraints();
-			particles.transform.SetParent(Heart, false);
-			particles.transform.localPosition = Vector3.zero;
-			particles.Play();
-			StartCoroutine(DestroySoon(collision.gameObject));
+			if (launchable != null && launchable.HasImpacted == false) {
+				ParticleSystem particles;
+				if (launchable.MyAddressse == addresseeData) {
+					particles = LoveParticles.Instance;
+				} else {
+					particles = AngryParticles.Instance;
+				}
+
+				particles.transform.SetParent(Heart, false);
+				particles.transform.localPosition = Vector3.zero;
+				particles.Play();
+
+				Destroy(GetComponent<SideMoving>());
+				_rb.constraints = new RigidbodyConstraints();
+
+				StartCoroutine(DestroySoon(collision.gameObject));
+
+				launchable.Impact();
+				hasBeenMurdererdWithMail = true;
+			}
 		}
 	}
 
