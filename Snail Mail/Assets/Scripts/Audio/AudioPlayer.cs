@@ -16,13 +16,11 @@ public class AudioPlayer : MonoBehaviour
 	private void Play (Vector3 position)
 	{
 		AudioSource source = null;
-		int count = Random.Range (0, sources.Length);
 		int tries = 0;
 
 		while ((source == null || source.isPlaying) && tries < 16)
 		{
 			source = sources[Random.Range(0, sources.Length)];
-			count = Random.Range (0, sources.Length);
 			tries++;
 		}
 
