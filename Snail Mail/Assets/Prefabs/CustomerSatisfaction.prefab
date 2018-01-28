@@ -11,6 +11,40 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1706032765813292}
   m_IsPrefabParent: 1
+--- !u!1 &1055633793870976
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4852199534899150}
+  - component: {fileID: 33961626869556386}
+  - component: {fileID: 23958058783022156}
+  - component: {fileID: 60480642016993370}
+  - component: {fileID: 114783707371815016}
+  m_Layer: 5
+  m_Name: Mesh
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1443599467950532
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4543297511200136}
+  m_Layer: 5
+  m_Name: SatisfactionBar
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1706032765813292
 GameObject:
   m_ObjectHideFlags: 0
@@ -20,26 +54,210 @@ GameObject:
   m_Component:
   - component: {fileID: 4684617207353710}
   - component: {fileID: 114896406059969436}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: CustomerSatisfaction
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1881401758782140
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4472761179991954}
+  - component: {fileID: 114663007941413158}
+  m_Layer: 5
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4472761179991954
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1881401758782140}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 4852199534899150}
+  m_Father: {fileID: 4543297511200136}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4543297511200136
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1443599467950532}
+  m_LocalRotation: {x: 0.28599343, y: 0.2537855, z: -0.016753675, w: 0.9238615}
+  m_LocalPosition: {x: 4.08, y: 0.99, z: 1.09}
+  m_LocalScale: {x: 0.55991757, y: 0.979856, z: 0.979856}
+  m_Children:
+  - {fileID: 4472761179991954}
+  m_Father: {fileID: 4684617207353710}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 32.476, y: 32.99, z: 7.78}
 --- !u!4 &4684617207353710
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1706032765813292}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0.117419444, y: -0.034877643, z: -0.0018460429, w: 0.99246806}
+  m_LocalPosition: {x: 0, y: 0.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 4543297511200136}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -13.485001, y: -4.057, z: 0.26700002}
+--- !u!4 &4852199534899150
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1055633793870976}
+  m_LocalRotation: {x: -0.000000029802317, y: 0.0000000149011585, z: -0.005925319,
+    w: 0.9999825}
+  m_LocalPosition: {x: 0, y: 0.7000001, z: 0}
+  m_LocalScale: {x: 0.7124955, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4472761179991954}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -0.679}
+--- !u!23 &23958058783022156
+MeshRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1055633793870976}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_Materials:
+  - {fileID: 2100000, guid: 7841ff3cb1bf84ce4ada3437098ff7f4, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!33 &33961626869556386
+MeshFilter:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1055633793870976}
+  m_Mesh: {fileID: 0}
+--- !u!60 &60480642016993370
+PolygonCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1055633793870976}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.61316204, y: 0.2570295}
+      - {x: 0.62825394, y: 0.541683}
+      - {x: 0.65955734, y: 0.6073554}
+      - {x: 0.71459675, y: 0.64843094}
+      - {x: 0.79080963, y: 0.6853135}
+      - {x: 0.79927444, y: 0.72660816}
+      - {x: 0.7633667, y: 0.77194834}
+      - {x: 0.6416817, y: 0.81570137}
+      - {x: 0.40096664, y: 0.81720656}
+      - {x: 0.06188202, y: 0.82498103}
+      - {x: -0.20132351, y: 0.8000495}
+      - {x: -0.5419588, y: 0.7794945}
+      - {x: -0.6961489, y: 0.74349964}
+      - {x: -0.7230196, y: 0.6940459}
+      - {x: -0.6761608, y: 0.6361222}
+      - {x: -0.5944967, y: 0.60543174}
+      - {x: -0.5861273, y: 0.55654705}
+      - {x: -0.58701515, y: 0.21078132}
+      - {x: -0.59220314, y: -0.079654925}
+      - {x: -0.5981693, y: -0.35626194}
+      - {x: -0.58346653, y: -0.5515415}
+      - {x: -0.6116257, y: -0.6093849}
+      - {x: -0.6834097, y: -0.65562046}
+      - {x: -0.6914253, y: -0.6960709}
+      - {x: -0.64972496, y: -0.7435452}
+      - {x: -0.501009, y: -0.78587687}
+      - {x: -0.25108624, y: -0.7739962}
+      - {x: -0.04757309, y: -0.77139175}
+      - {x: 0.19063568, y: -0.7537019}
+      - {x: 0.5888319, y: -0.74896085}
+      - {x: 0.68590736, y: -0.71851176}
+      - {x: 0.72099876, y: -0.6566515}
+      - {x: 0.67456055, y: -0.6007556}
+      - {x: 0.62482834, y: -0.56154835}
+      - {x: 0.6214142, y: -0.33635765}
+      - {x: 0.6155243, y: -0.0033747852}
+--- !u!114 &114663007941413158
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1881401758782140}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5298ddb74fe5749ac847c0a59f5ebe77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scale: 0.02
+  speed: 13.56
+--- !u!114 &114783707371815016
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1055633793870976}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5798a5589fa984f6ead324bcdcf3d581, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dirty: 0
+  depth: 0.15
 --- !u!114 &114896406059969436
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -51,9 +269,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a47d3c0bb04b641c5865c72e18053a00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxSatisfaction: 100
-  PenaltyForMiss: 1
-  PenaltyForWrongRecipient: 5
-  BonusForRightRecipient: 10
-  SatisfactionDrainRate: 5
+  MaxSatisfaction: 1
+  PenaltyForMiss: 0.1
+  PenaltyForWrongRecipient: 0.1
+  BonusForRightRecipient: 0.25
+  SatisfactionDrainRate: 0.05
   DummySatisfactionDisplay: {fileID: 0}

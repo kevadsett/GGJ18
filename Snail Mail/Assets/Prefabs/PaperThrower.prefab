@@ -52,14 +52,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BallPrefab: {fileID: 1709210167651488, guid: 4ebad3af0d6ab48069b166064cef6306, type: 2}
-  YLimitMin: 2
-  YLimitMax: 3.8
+  YLimitMin: 3.8
+  YLimitMax: 2
   TargetDistanceMax: 56
   TargetDistanceMin: 5
-  ArrowScaleMin: 1
-  ArrowScaleMax: 4
   Spread: 3.8
-  ArrowObject: {fileID: 0}
   TargetObject: {fileID: 0}
   LoadViewRadius: 0.18
   LoadViewPoint: {x: 0, y: -0.4, z: 0}
