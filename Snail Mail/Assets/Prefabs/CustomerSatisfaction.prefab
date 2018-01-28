@@ -445,7 +445,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MaxSatisfaction: 1
-  PenaltyForMiss: 0.1
-  PenaltyForWrongRecipient: 0.1
+  PenaltyForMiss: 0.125
+  PenaltyForWrongRecipient: 0.125
   BonusForRightRecipient: 0.25
-  SatisfactionDrainRate: 0.05
+  SatisfactionDrainRate: 0.025
+  SatisfactionDrainIncreaseRate: 0.00125

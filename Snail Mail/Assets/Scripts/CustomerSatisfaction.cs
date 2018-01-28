@@ -13,8 +13,10 @@ public class CustomerSatisfaction : MonoBehaviour
 	public float PenaltyForWrongRecipient;
 	public float BonusForRightRecipient;
 	public float SatisfactionDrainRate;
+	public float SatisfactionDrainIncreaseRate;
 
 	private float _currentSatisfaction;
+	private float _currentDrainRate;
 
 	private bool _isGameInProgress = true;
 
@@ -37,6 +39,7 @@ public class CustomerSatisfaction : MonoBehaviour
 	void Start ()
 	{
 		_currentSatisfaction = MaxSatisfaction;
+		_currentDrainRate = SatisfactionDrainRate;
 		Recipient.OnMessageReceived += OnMessageReceived;
 		Launchable.OnFailedToImpact += OnFailedToImpact;
 		RestartOnCollision.OnResetGame += OnResetGame;
@@ -56,9 +59,10 @@ public class CustomerSatisfaction : MonoBehaviour
 			return;
 		}
 
-		_currentSatisfaction -= SatisfactionDrainRate * Time.deltaTime;
-
+		_currentSatisfaction -= _currentDrainRate * Time.deltaTime;
 		_currentSatisfaction = Mathf.Clamp(_currentSatisfaction, 0, MaxSatisfaction);
+
+		_currentDrainRate += SatisfactionDrainIncreaseRate * Time.deltaTime;
 
 		if (_currentSatisfaction <= 0)
 		{
@@ -96,6 +100,7 @@ public class CustomerSatisfaction : MonoBehaviour
 	void OnResetGame ()
 	{
 		_currentSatisfaction = MaxSatisfaction;
+		_currentDrainRate = SatisfactionDrainRate;
 		_isGameInProgress = true;
 	}
 }
