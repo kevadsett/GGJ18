@@ -97,8 +97,10 @@ public class PaperThrower : MonoBehaviour
 
 	private Vector3 GetFinalPosition()
 	{
-		var yDiff = _initialMousePosition.y - Input.mousePosition.y;
-		Vector3 currentScreenSpace = new Vector3(Input.mousePosition.x, _initialMousePosition.y - yDiff, _initialMousePosition.z);
+		Vector3 mpos = HandController.ConstrainedMousePos ();
+
+		var yDiff = _initialMousePosition.y - mpos.y;
+		Vector3 currentScreenSpace = new Vector3(mpos.x, _initialMousePosition.y - yDiff, _initialMousePosition.z);
 		Vector3 curPosition = Camera.main.ScreenToWorldPoint(currentScreenSpace) + _offset;
 		Vector3 finalPosition = new Vector3(curPosition.x, _grabbedObject.transform.position.y, curPosition.y);
 		finalPosition.z = Mathf.Clamp(finalPosition.z, ZLimitMin, ZLimitMax);
@@ -113,7 +115,7 @@ public class PaperThrower : MonoBehaviour
 
 		Destroy(_grabbedObject.GetComponent<Grabbable>());
 
-		_initialMousePosition = Input.mousePosition;
+		_initialMousePosition = HandController.ConstrainedMousePos ();
 
 		_initialMousePosition.z = _mainCamera.WorldToScreenPoint(_grabbedObject.transform.position).z;
 
