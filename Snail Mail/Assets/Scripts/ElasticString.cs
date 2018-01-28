@@ -9,8 +9,8 @@ public class ElasticString : MonoBehaviour {
 	void Update () {
 		Vector3 targetPos;
 
-		if (PaperThrower.GrabbedObject != null) {
-			targetPos = PaperThrower.GrabbedObject.transform.position + Vector3.right * stretchOffset;
+		if (PaperThrower.LoadedObject != null) {
+			targetPos = PaperThrower.LoadedObject.transform.position + Vector3.right * stretchOffset;
 		} else {
 			targetPos = defaultTarget.position;
 		}
