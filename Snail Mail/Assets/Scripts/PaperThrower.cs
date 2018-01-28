@@ -33,6 +33,22 @@ public class PaperThrower : MonoBehaviour
 
 	private Vector3 _targetPosition;
 
+	private static PaperThrower instance;
+
+	public static GameObject GrabbedObject { 
+		get {
+			if (instance != null) {
+				return instance._grabbedObject;
+			}
+			return null;
+		}
+	}
+
+	void Awake ()
+	{
+		instance = this;
+	}
+
 	void Start ()
 	{
 		_state = State.NothingGrabbed;
