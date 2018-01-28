@@ -176,6 +176,8 @@ public class PaperThrower : MonoBehaviour
 
 		_grabbedObject.transform.position = GetFinalPosition();
 
+		AudioPlayer.PlaySound ("Scrumple", _grabbedObject.transform.position);
+
 		LetterQueue.LetterGrabbed ();
 
 		_state = State.Loading;

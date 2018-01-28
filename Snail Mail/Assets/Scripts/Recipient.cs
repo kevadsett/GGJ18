@@ -59,7 +59,13 @@ public class Recipient : MonoBehaviour
 	{
 		ParticleSystem particles;
 
-		particles = happy ? LoveParticles.Instance : AngryParticles.Instance;
+		if (happy) {
+			particles = LoveParticles.Instance;
+			AudioPlayer.PlaySound ("Thanks", Heart.position);
+		} else {
+			particles = AngryParticles.Instance;
+			AudioPlayer.PlaySound ("Oh no", Heart.position);
+		}
 
 		if (OnMessageReceived != null)
 		{
