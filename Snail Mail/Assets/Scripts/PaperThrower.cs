@@ -86,7 +86,7 @@ public class PaperThrower : MonoBehaviour
 		Vector3 vpos = LoadViewPoint;
 		vpos.z = mvpos.z;
 
-		if (Input.GetMouseButton(0) && Vector3.Distance (mvpos, GrabViewPoint) < GrabViewRadius)
+		if (Input.GetMouseButtonDown(0) && Vector3.Distance (mvpos, GrabViewPoint) < GrabViewRadius)
 		{
 			OnThingGrabbed (Instantiate(BallPrefab));
 		}
