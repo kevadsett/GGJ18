@@ -9,9 +9,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: de7536beb409e426180f0b6ec4492313, type: 3}
-  m_Name: RabCHoppington
+  m_Name: RabTHoppington
   m_EditorClassIdentifier: 
-  forename: Rab C.
+  forename: Rab T.
   surname: Hoppington
   addressline1: Warren 3, 2 Bush Lane
   addressline2: The Woods
