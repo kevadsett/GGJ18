@@ -23,6 +23,7 @@ public class CritterSpawner : MonoBehaviour
 	{
 		Recipient.OnMessageReceived += OnMessageReceived;
 		CustomerSatisfaction.OnZeroSatisfaction += OnZeroSatisfaction;
+		RestartOnCollision.OnResetGame += OnResetGame;
 
 		CritterPrefabs.ForEach(prefab =>
 		{
@@ -38,6 +39,7 @@ public class CritterSpawner : MonoBehaviour
 	{
 		Recipient.OnMessageReceived -= OnMessageReceived;
 		CustomerSatisfaction.OnZeroSatisfaction -= OnZeroSatisfaction;
+		RestartOnCollision.OnResetGame -= OnResetGame;
 	}
 
 	void Update()
@@ -124,5 +126,11 @@ public class CritterSpawner : MonoBehaviour
 	{
 		_isGameInProgress = false;
 		_currentCoroutines.ForEach(StopCoroutine);
+	}
+
+	private void OnResetGame()
+	{
+		_isGameInProgress = true;
+		_spawnedCritters.Clear();
 	}
 }

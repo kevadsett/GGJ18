@@ -39,12 +39,14 @@ public class CustomerSatisfaction : MonoBehaviour
 		_currentSatisfaction = MaxSatisfaction;
 		Recipient.OnMessageReceived += OnMessageReceived;
 		Launchable.OnFailedToImpact += OnFailedToImpact;
+		RestartOnCollision.OnResetGame += OnResetGame;
 	}
 
 	void OnDestroy()
 	{
 		Recipient.OnMessageReceived -= OnMessageReceived;
 		Launchable.OnFailedToImpact -= OnFailedToImpact;
+		RestartOnCollision.OnResetGame -= OnResetGame;
 	}
 
 	void Update()
@@ -89,5 +91,11 @@ public class CustomerSatisfaction : MonoBehaviour
 	void OnFailedToImpact (Addressee recipient)
 	{
 		_currentSatisfaction -= PenaltyForMiss;
+	}
+
+	void OnResetGame ()
+	{
+		_currentSatisfaction = MaxSatisfaction;
+		_isGameInProgress = true;
 	}
 }
