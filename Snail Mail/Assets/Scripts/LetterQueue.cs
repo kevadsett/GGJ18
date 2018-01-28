@@ -17,11 +17,14 @@ public class LetterQueue : MonoBehaviour {
 	[SerializeField] TextMesh addressText;
 
 	public static Addressee CurrentAddressee { get; private set; }
+
+	public static System.Action LetterGrabbed { get; private set; }
 	public static System.Action LetterLaunched { get; private set; }
 
 	float timer = 1f;
 
 	void Awake () {
+		LetterGrabbed = OnGrabbed;
 		LetterLaunched = OnLaunched;
 		OnLaunched ();
 	}
@@ -43,7 +46,13 @@ public class LetterQueue : MonoBehaviour {
 		timer += Time.deltaTime * animSpeed;
 	}
 
+	void OnGrabbed () {
+		scalePivot.gameObject.SetActive (false);
+	}
+
 	void OnLaunched () {
+		scalePivot.gameObject.SetActive (true);
+
 		Addressee selected = CurrentAddressee;
 		while (selected == CurrentAddressee) {
 			selected = gameDatabase.addressees [Random.Range (0, gameDatabase.addressees.Length)];

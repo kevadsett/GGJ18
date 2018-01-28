@@ -63,5 +63,7 @@ MonoBehaviour:
   Spread: 3.8
   ArrowObject: {fileID: 0}
   TargetObject: {fileID: 0}
-  GrabViewRadius: 0.18
-  GrabViewPoint: {x: 0, y: -0.4, z: 0}
+  LoadViewRadius: 0.18
+  LoadViewPoint: {x: 0, y: -0.4, z: 0}
+  GrabViewRadius: 0.3
+  GrabViewPoint: {x: -0.8, y: -0.7, z: 0}

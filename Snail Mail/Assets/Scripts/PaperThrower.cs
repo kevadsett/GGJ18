@@ -16,10 +16,14 @@ public class PaperThrower : MonoBehaviour
 	public float Spread = 3;
 	public GameObject ArrowObject;
 	public GameObject TargetObject;
+
+	public float LoadViewRadius;
+	public Vector3 LoadViewPoint;
+
 	public float GrabViewRadius;
 	public Vector3 GrabViewPoint;
 
-	private enum State { NothingGrabbed, Positioning, SettingPower };
+	private enum State { NothingGrabbed, Loading, Aiming, SettingPower };
 	private State _state;
 
 	private Camera _mainCamera;
@@ -35,9 +39,9 @@ public class PaperThrower : MonoBehaviour
 
 	private static PaperThrower instance;
 
-	public static GameObject GrabbedObject { 
+	public static GameObject LoadedObject { 
 		get {
-			if (instance != null) {
+			if (instance != null && instance._state == State.Aiming) {
 				return instance._grabbedObject;
 			}
 			return null;
@@ -63,7 +67,10 @@ public class PaperThrower : MonoBehaviour
 		case State.NothingGrabbed:
 			UpdateNothingGrabbed();
 			break;
-		case State.Positioning:
+		case State.Loading:
+			UpdateLoading();
+			break;
+		case State.Aiming:
 			UpdatePositioning();
 			break;
 		}
@@ -76,12 +83,44 @@ public class PaperThrower : MonoBehaviour
 		mvpos.x = mvpos.x * 2f - 1f;
 		mvpos.y = mvpos.y * 2f - 1f;
 
-		Vector3 vpos = GrabViewPoint;
+		Vector3 vpos = LoadViewPoint;
 		vpos.z = mvpos.z;
 
-		if (Input.GetMouseButtonDown(0) && Vector3.Distance (mvpos, GrabViewPoint) < GrabViewRadius)
+		if (Input.GetMouseButton(0) && Vector3.Distance (mvpos, GrabViewPoint) < GrabViewRadius)
 		{
-			OnThingGrabbed(Instantiate(BallPrefab));
+			OnThingGrabbed (Instantiate(BallPrefab));
+		}
+	}
+
+	private void UpdateLoading()
+	{
+		Vector3 mpos = HandController.ConstrainedMousePos ();
+		Vector3 mvpos = _mainCamera.ScreenToViewportPoint (mpos);
+		mvpos.x = mvpos.x * 2f - 1f;
+		mvpos.y = mvpos.y * 2f - 1f;
+
+		Vector3 vpos = LoadViewPoint;
+		vpos.z = mvpos.z;
+
+		if (Input.GetMouseButton(0) && Vector3.Distance (mvpos, LoadViewPoint) < LoadViewRadius)
+		{
+			OnShotLoaded();
+		}
+
+		Vector3 finalPosition = GetFinalPosition();
+
+		_grabbedObject.transform.position = finalPosition;
+
+		if (Input.GetMouseButtonUp(0))
+		{
+			Vector3 fallPos = finalPosition;
+			fallPos.y = 0f;
+
+			_grabbedObject.GetComponent<Launchable>().Launch(fallPos, 0f);
+			_grabbedObject = null;
+			_state = State.NothingGrabbed;
+			TargetObject.SetActive(false);
+			return;
 		}
 	}
 
@@ -141,7 +180,8 @@ public class PaperThrower : MonoBehaviour
 
 		Destroy(_grabbedObject.GetComponent<Grabbable>());
 
-		_initialMousePosition = HandController.ConstrainedMousePos ();
+		_initialMousePosition = new Vector3 (LoadViewPoint.x * 0.5f + 0.5f * Screen.width,
+			LoadViewPoint.y * 0.5f + 0.5f * Screen.height, 0f);
 
 		_initialMousePosition.z = _mainCamera.WorldToScreenPoint(_grabbedObject.transform.position).z;
 
@@ -149,6 +189,19 @@ public class PaperThrower : MonoBehaviour
 
 		_grabbedObject.transform.position = GetFinalPosition();
 
-		_state = State.Positioning;
+		LetterQueue.LetterGrabbed ();
+
+		_state = State.Loading;
+	}
+
+	private void OnShotLoaded()
+	{
+		TargetObject.SetActive(true);
+
+		_offset = _grabbedObject.transform.position - _mainCamera.ScreenToWorldPoint(_initialMousePosition);
+
+		_grabbedObject.transform.position = GetFinalPosition();
+
+		_state = State.Aiming;
 	}
 }
