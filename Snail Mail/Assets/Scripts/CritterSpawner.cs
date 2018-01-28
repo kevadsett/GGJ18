@@ -8,6 +8,9 @@ public class CritterSpawner : MonoBehaviour
 	public List<Transform> SpawnPoints;
 	public float MaxCritters;
 	public float MaxWait;
+	public float MinSpeed;
+	public float MaxSpeed;
+
 
 	private List<GameObject> _spawnedCritters = new List<GameObject>();
 	private bool _waitingToSpawn;
@@ -107,6 +110,8 @@ public class CritterSpawner : MonoBehaviour
 			selectedSpawnPoint.position.y,
 			selectedSpawnPoint.position.z + Random.value * 2
 		);
+
+		critterObject.GetComponent<SideMoving>().Speed = MinSpeed + (Random.value * (MaxSpeed - MinSpeed));
 
 		_spawnedCritters.Add(critterObject);
 	}

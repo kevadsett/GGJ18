@@ -60,3 +60,5 @@ MonoBehaviour:
   - {fileID: 0}
   MaxCritters: 10
   MaxWait: 5
+  MinSpeed: 1
+  MaxSpeed: 2
